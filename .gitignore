@@ -1,0 +1,16 @@
+.idea/
+
+/node_modules
+
+/build
+
+package-lock.json
+
+*.ai
+*.psd
+*.pdf
+*.log
+
+Thumbs.db
+# Project exclude paths
+/dist/

@@ -1,0 +1,17 @@
+//- Главная страница
+extends ../../layout/layout.pug
+
+block meta
+
+    include main.data.pug
+
+    title=title + ' | ' + siteName
+    meta( name='description', content=description )
+    meta( name='keywords', content=keywords )
+
+block append head
+    link( rel='canonical' href=siteURL + siteURN )
+    link( rel='stylesheet' href='styles/' + fileName + '.css' )
+
+block append foot
+    script( src='scripts/' + fileName + '.js' )
