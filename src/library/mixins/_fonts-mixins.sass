@@ -1,9 +1,9 @@
 @mixin fontFace( $name, $weight, $style: normal )
-    @font-face
-        font:
-            family: $name
-            display: swap
-            style: $style
-            weight: $weight
-        src: url( '#{ $font-dir }#{ $name }/#{ $name }-Light.woff2' ) format( 'woff2' ),
-        url( '#{ $font-dir }#{ $name }/#{ $name }-Light.woff') format('woff' )
+  @font-face
+      font:
+        family: $name
+        display: swap
+        style: $style
+        weight: $weight
+    src: url( '#{ $font-dir }#{ $name }/#{ $name }-Light.woff2' ) format( 'woff2' ),
+    url( '#{ $font-dir }#{ $name }/#{ $name }-Light.woff') format('woff' )

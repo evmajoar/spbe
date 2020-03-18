@@ -1,51 +1,39 @@
-// Общие стили тегов.
-// Подключение шрифтов.
-// Типографика.
-
 @import variables.sass
 @import mixins.sass
 @import fonts.sass
 
-
 *,
 *:before,
 *:after
-    box-sizing: inherit
-
+  box-sizing: inherit
 
 *
-    -webkit-tap-highlight-color: transparent
-
+  -webkit-tap-highlight-color: transparent
 
 body
-    background-color: $body-bg
-    color: $text-color
-    display: flex
-    flex-direction: column
-    font: #{ $font-size }/#{ $line-height } #{ $font-family }
-    text-align: left
-    margin: 0
-    min-height: 100%
-    word-break: break-word
+  background-color: $body-bg
+  color: $text-color
+  display: flex
+  flex-direction: column
+  font: #{ $font-size }/#{ $line-height } #{ $font-family }
+  text-align: left
+  margin: 0
+  min-height: 100%
+  word-break: break-word
 
-    -webkit-font-smoothing: antialiased
-    -moz-osx-font-smoothing: grayscale
-    -webkit-overflow-scrolling: touch
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  -webkit-overflow-scrolling: touch
 
 
 [tabindex='-1']:focus
-    outline: none !important // stylelint-disable-line
+  outline: none !important // stylelint-disable-line
 
-
-// Коррекция для кликабельных элементов с указанной ролью в iOS
 [role='button']
-    cursor: pointer
+  cursor: pointer
 
-
-// Мы любим Сафари (на самом деле, нет).
 [type='search']::-webkit-search-decoration
-    -webkit-appearance: none // stylelint-disable-line
-
+  -webkit-appearance: none // stylelint-disable-line
 
 area,
 summary,
@@ -56,103 +44,93 @@ input,
 label,
 select,
 textarea
-    touch-action: manipulation // Стилевая коррекция 300ms задержки (для поддерживающих браузеров)
-    margin: 0 // Убираем margin в Firefox и Safari
-
+  touch-action: manipulation
+  margin: 0
 
 button,
 input
-    overflow: visible // Покажем торчащее в Edge
-    text-transform: none // Уберём наследование text transform в Firefox
+  overflow: visible
+  text-transform: none
 
-
-// Коррекция проблем стилизации для Safari
 button,
 html [type='button'],
 [type='reset'],
 [type='submit']
-    -webkit-appearance: button // stylelint-disable-line
+  -webkit-appearance: button // stylelint-disable-line
 
 
 button::-moz-focus-inner,
 [type='button']::-moz-focus-inner,
 [type='reset']::-moz-focus-inner,
 [type='submit']::-moz-focus-inner
-    padding: 0
-    border-style: none
+  padding: 0
+  border-style: none
 
-
-// Коррекция для Mobile Safari (https://github.com/twbs/bootstrap/issues/11266)
 input[type='date'],
 input[type='time'],
 input[type='datetime-local'],
 input[type='month']
-    -webkit-appearance: listbox // stylelint-disable-line
-
+  -webkit-appearance: listbox // stylelint-disable-line
 
 input:not([type=checkbox]):not([type=radio]),
 textarea,
 select
-    //border-radius: 0
-    //box-shadow: none
-    -webkit-border-radius: 0
-    -webkit-appearance: none
-    -moz-appearance: none
-    appearance: none
-
+  //border-radius: 0
+  //box-shadow: none
+  -webkit-border-radius: 0
+  -webkit-appearance: none
+  -moz-appearance: none
+  appearance: none
 
 textarea
-    overflow: auto   // Удаление верт. скролла в IE.
-    resize: vertical // Правильное изменение размеров
-
+  overflow: auto
+  resize: vertical
 
 svg
-    fill: currentColor
+  fill: currentColor
 
-    a &,
-    button &
-        pointer-events: none // Мы любим Edge, это браузер! (почти)
+  a &,
+  button &
+    pointer-events: none
 
-    &:not(:root)
-        overflow: hidden // Скрыть выступающее за границы в IE
+  &:not(:root)
+    overflow: hidden
 
 
 img
-    max-width: 100%
-    height: auto
+  max-width: 100%
+  height: auto
 
 a
-    color: $link-color
-    background-color: transparent
-    transition: color .3s
+  color: $link-color
+  background-color: transparent
+  transition: color .3s
 
-    &:hover,
-    &:focus
-        color: $link-color--hover
+  &:hover,
+  &:focus
+    color: $link-color--hover
 
-    // &:visited
-    //   color: $link-color--hover
-    //
+  // &:visited
+  //   color: $link-color--hover
+  //
 
-    &[href^='tel:']
+  &[href^='tel:']
 
-        // На больших экранах телефоны-ссылки делаем обычным текстом
-        @media (min-width: $screen-xl)
-            white-space: nowrap
-            pointer-events: none
-            text-decoration: inherit
-            color: inherit
-
+    // На больших экранах телефоны-ссылки делаем обычным текстом
+    @media (min-width: $screen-xl)
+      white-space: nowrap
+      pointer-events: none
+      text-decoration: inherit
+      color: inherit
 
 hr
-    box-sizing: content-box // Проблема Firefox
-    height: 0               // Проблема Firefox
-    overflow: visible       // Проблема Edge и IE
-    margin-top: $typo-margin-vertical * 2
-    margin-bottom: $typo-margin-vertical * 2
-    border: 0
-    border-top: 1px solid $border-color
-
+  box-sizing: content-box
+  height: 0
+  overflow: visible
+  margin-top: $typo-margin-vertical * 2
+  margin-bottom: $typo-margin-vertical * 2
+  border: 0
+  border-top: 1px solid $border-color
 
 h1,
 h2,
@@ -160,27 +138,25 @@ h3,
 h4,
 h5,
 h6
-    margin-top: 1em
-    margin-bottom: .5em
-    font-family: $font-family
-    font-weight: 700
-    line-height: 1.2
-    color: currentColor
-
+  margin-top: 1em
+  margin-bottom: .5em
+  font-family: $font-family
+  font-weight: 700
+  line-height: 1.2
+  color: currentColor
 
 h1
-    font-size: $font-size-h1  // stylelint-disable-line
+  font-size: $font-size-h1  // stylelint-disable-line
 h2
-    font-size: $font-size-h2  // stylelint-disable-line
+  font-size: $font-size-h2  // stylelint-disable-line
 h3
-    font-size: $font-size-h3  // stylelint-disable-line
+  font-size: $font-size-h3  // stylelint-disable-line
 h4
-    font-size: $font-size-h4  // stylelint-disable-line
+  font-size: $font-size-h4  // stylelint-disable-line
 h5
-    font-size: $font-size-h5  // stylelint-disable-line
+  font-size: $font-size-h5  // stylelint-disable-line
 h6
-    font-size: $font-size-h6  // stylelint-disable-line
-
+  font-size: $font-size-h6  // stylelint-disable-line
 
 p,
 ul,
@@ -191,9 +167,8 @@ blockquote,
 pre,
 address,
 figure
-    margin-top: 0
-    margin-bottom: $typo-margin-vertical
-
+  margin-top: 0
+  margin-bottom: $typo-margin-vertical
 
 p
     // http://clagnut.com/blog/2395
@@ -203,98 +178,86 @@ p
     hyphenate-limit-last: always
     hyphenate-limit-zone: 8%
 
-
 address
-    font-style: normal
-
+  font-style: normal
 
 ul,
 ol
-    margin-bottom: $typo-margin-vertical
-    padding-left: 1.5em
+  margin-bottom: $typo-margin-vertical
+  padding-left: 1.5em
 
-    ul,
-    ol
-        margin-top: 0
-        margin-bottom: 0
-
+  ul,
+  ol
+    margin-top: 0
+    margin-bottom: 0
 
 li
-    line-height: inherit
+  line-height: inherit
 
 dt
-    font-weight: 700
+  font-weight: 700
 
 dd
-    margin-left: 0
+  margin-left: 0
 
-    @media (min-width: $screen-sm)
-        margin-left: 1.5rem
+  @media (min-width: $screen-sm)
+    margin-left: 1.5rem
 
-    & + dt
-        margin-top: ($line-height / 2)
-
+  & + dt
+    margin-top: ($line-height / 2)
 
 small
-    font-size: $font-size-sm
-
+  font-size: $font-size-sm
 
 sub,
 sup
-    font-size: $font-size-sm
-
+  font-size: $font-size-sm
 
 mark
-    background: rgba( $color-warning, .3 )
-    padding: .1em .3em
-
+  background: rgba( $color-warning, .3 )
+  padding: .1em .3em
 
 b,
 strong
-    font-weight: bolder
-
+  font-weight: bolder
 
 abbr[title]
-    text-decoration: underline dotted
-
+  text-decoration: underline dotted
 
 blockquote
-    padding: 0
-    margin-left: 0
-    margin-right: 0
+  padding: 0
+  margin-left: 0
+  margin-right: 0
 
 samp,
 code,
 kbd,
 pre
-    font-family: $font-family--monospace
-
+  font-family: $font-family--monospace
 
 code
-    padding: 0.06em 0.3em
-    color: $text-color
-    background-color: rgba( $black, .08 )
-    border-radius: $border-radius
-
+  padding: 0.06em 0.3em
+  color: $text-color
+  background-color: rgba( $black, .08 )
+  border-radius: $border-radius
 
 kbd
-    padding: .06em .3em
-    color: $text-color
-    background-color: $gray-lightest
-    border-radius: $border-radius
+  padding: .06em .3em
+  color: $text-color
+  background-color: $gray-lightest
+  border-radius: $border-radius
 
-    kbd
-        padding: 0
-
+  kbd
+    padding: 0
 
 pre
-    display: block
-    width: 100%
-    margin-bottom: $typo-margin-vertical
-    overflow-x: auto
-    tab-size: 2
-    background-color: rgba( $black, .08 )
+  display: block
+  width: 100%
+  margin-bottom: $typo-margin-vertical
+  overflow-x: auto
+  tab-size: 2
+  background-color: rgba( $black, .08 )
 
-    code
-        background: transparent
+  code
+    background: transparent
 

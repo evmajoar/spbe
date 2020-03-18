@@ -1,8 +1,7 @@
 .idea/
 
-/node_modules
-
-/build
+node_modules/
+dist/
 
 package-lock.json
 
@@ -12,5 +11,3 @@ package-lock.json
 *.log
 
 Thumbs.db
-# Project exclude paths
-/dist/

@@ -1,55 +1,55 @@
-//- Шаблон страницы
+//- Шаблон станиц
 include layout.data.pug
 
 doctype html
 
 html( class='page', lang=language )
-    head
-        meta( charset=charset )
-        meta( name='viewport', content='width=device-width, initial-scale=1, minimum-scale=1' )
-        meta( name='language', content=language.toUpperCase() )
-        meta( name='author', content=name + ', ' + email )
+  head
+    meta( charset=charset )
+    meta( name='viewport', content='width=device-width, initial-scale=1, minimum-scale=1' )
+    meta( name='language', content=language.toUpperCase() )
+    meta( name='author', content=name + ', ' + email )
 
-        meta( name='format-detection', content='telephone=no' )
-        meta( name='format-detection', content='date=no' )
-        meta( name='format-detection', content='email=no' )
-        meta( name='notranslate', content='google' )
+    meta( name='format-detection', content='telephone=no' )
+    meta( name='format-detection', content='date=no' )
+    meta( name='format-detection', content='email=no' )
+    meta( name='notranslate', content='google' )
 
-        meta( name='mobile-web-app-capable', content='yes' )
-        meta( name='application-name', content=siteName )
-        meta( name='theme-color', content='#000' )
-        meta( name='apple-mobile-web-app-capable', content='yes' )
-        meta( name='apple-mobile-web-app-title', content=siteName )
-        meta( name='apple-mobile-web-app-status-bar-style', content='#000' )
-        meta( name='msapplication-TileColor', content='#000' )
-        meta( name='msapplication-config', content=faviconPath + 'browserconfig.xml' )
+    meta( name='mobile-web-app-capable', content='yes' )
+    meta( name='application-name', content=siteName )
+    meta( name='theme-color', content='#000' )
+    meta( name='apple-mobile-web-app-capable', content='yes' )
+    meta( name='apple-mobile-web-app-title', content=siteName )
+    meta( name='apple-mobile-web-app-status-bar-style', content='#000' )
+    meta( name='msapplication-TileColor', content='#000' )
+    meta( name='msapplication-config', content=faviconPath + 'browserconfig.xml' )
 
-        //- Фавиконки (https://realfavicongenerator.net)
-            link( rel='apple-touch-icon', sizes='180x180', href=faviconPath + 'apple-touch-icon.png' )
-            link( rel='apple-touch-icon', sizes='180x180', href=faviconPath + 'apple-touch-icon.png' )
-            link( rel='icon', type='image/png', sizes='32x32', href=faviconPath + 'favicon-32x32.png' )
-            link( rel='icon', type='image/png', sizes='16x16', href=faviconPath + 'favicon-16x16.png' )
-            link( rel='shortcut icon', type='image/x-icon', href=faviconPath + 'favicon.ico' )
-            link( rel='icon', type='image/png', sizes='16x16', href=faviconPath + 'favicon-16x16.png' )
-            link( rel='mask-icon', color='#000' href=faviconPath + 'safari-pinned-tab.svg' )
+    //- Фавиконки (https://realfavicongenerator.net)
+      link( rel='apple-touch-icon', sizes='180x180', href=faviconPath + 'apple-touch-icon.png' )
+      link( rel='apple-touch-icon', sizes='180x180', href=faviconPath + 'apple-touch-icon.png' )
+      link( rel='icon', type='image/png', sizes='32x32', href=faviconPath + 'favicon-32x32.png' )
+      link( rel='icon', type='image/png', sizes='16x16', href=faviconPath + 'favicon-16x16.png' )
+      link( rel='shortcut icon', type='image/x-icon', href=faviconPath + 'favicon.ico' )
+      link( rel='icon', type='image/png', sizes='16x16', href=faviconPath + 'favicon-16x16.png' )
+      link( rel='mask-icon', color='#000' href=faviconPath + 'safari-pinned-tab.svg' )
 
-        block meta
+    block meta
 
-        block head
-            link( rel='dns-prefetch' href='https://cdnjs.cloudflare.com/' )
-            link( rel='preconnect' href='https://cdnjs.cloudflare.com/' )
+    block head
+      link( rel='dns-prefetch' href='https://cdnjs.cloudflare.com/' )
+      link( rel='preconnect' href='https://cdnjs.cloudflare.com/' )
 
-    body
-        noscript У вас отключен JavaScript. Это пугает.
+  body
+    noscript У вас отключен JavaScript. Это пугает.
 
-        .page__inner
-            .page__content
+    .page__inner
+      .page__content
 
-                block header
+        block header
 
-                block content
+        block content
 
-            .page__footer-wrapper
-                block footer
+        .page__footer-wrapper
+          block footer
 
-        block foot
+    block foot
