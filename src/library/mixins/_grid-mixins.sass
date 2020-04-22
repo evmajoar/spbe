@@ -1,0 +1,154 @@
+@import "../variables"
+
+$screen-xs:                   0 !default
+$screen-sm:                   480px !default
+$screen-md:                   768px !default
+$screen-lg:                   992px !default
+$screen-xl:                   1200px !default
+$screen-xxl:                  1800px !default
+
+$grid-columns:                12 !default
+$grid-column-width:           70px !default
+$grid-gutter-width:           30px !default
+
+
+//------------------------------------------------------------------------------
+//  Генератор правил для одного grid-row
+//------------------------------------------------------------------------------
+//  Принимает:       По умолчанию:         Пояснение:
+//  $columns:        $grid-columns         общее количество column в 1 row
+//  $width:          $grid-column-width    ширина column
+//  $gutter:         $grid-gutter-width    промежуток между column
+//------------------------------------------------------------------------------
+
+@mixin make-row (
+  $columns: $grid-columns,
+  $width: $grid-column-width,
+  $gutter: $grid-gutter-width,
+  $padding: $grid-gutter-width
+) 
+  grid-column-gap: $gutter
+
+  @if( $columns === 12 ) 
+    grid-template-columns: repeat( $columns, minmax( 0, $width ) )
+  
+  // Если $width == equal, ширина каждой колонки будет равна 1fr
+  @else if ( $width == equal ) 
+    grid-template-columns: repeat( $columns, 1fr )
+  
+  @else 
+    grid-template-columns: repeat( $columns, minmax( $width, auto ) )
+  
+  // Если $gutter == false, в CSS не попадут правила padding-left и padding-right
+  @if ( $padding != false ) 
+    padding-left: ( $padding / 2 )
+    padding-right: ( $padding / 2 )
+
+
+//------------------------------------------------------------------------------
+//  Генератор правил для одного grid-row с возможностью указать @media
+//------------------------------------------------------------------------------
+//  Принимает:    По умолчанию:         Пояснение:
+//  $screen:      xs                    тип сетки [xs|sm|md|lg|xl|xxl]
+//  $columns:     $grid-columns         общее количество column в 1 row
+//  $width:       $grid-column-width    ширина column
+//  $gutter:      $grid-gutter-width    промежуток между column
+//  $padding:     $grid-gutter-width    отступы слева и справа / 2
+//------------------------------------------------------------------------------
+
+@mixin row (
+  $screen:  xs,
+  $columns: $grid-columns,
+  $width: $grid-column-width,
+  $gutter:  $grid-gutter-width,
+  $padding: $grid-gutter-width
+) 
+  display: grid
+
+  @if ( $screen == xs ) 
+    @include make-row( $columns, $width, $gutter, $padding )
+  
+  @if ( $screen == sm ) 
+   @media ( min-width: $screen-sm ) 
+     @include make-row( $columns, $width, $gutter, $padding )
+     max-width: $container-sm
+   
+  @if ( $screen == md ) 
+   @media ( min-width: $screen-md ) 
+     @include make-row( $columns, $width, $gutter, $padding )
+     max-width: $container-md
+   
+  @if ( $screen == lg ) 
+   @media ( min-width: $screen-lg ) 
+     @include make-row( $columns, $width, $gutter, $padding )
+     max-width: $container-lg
+   
+  @if ( $screen == xl ) 
+    @media ( min-width: $screen-xl ) 
+      @include make-row( $columns, $width, $gutter, $padding )
+      max-width: $container-xl
+  
+  @if ( $screen == xxl ) 
+   @media ( min-width: $screen-xxl ) 
+     @include make-row( $columns, $width, $gutter, $padding )
+     max-width: $container-xxl
+   
+  
+
+  
+//------------------------------------------------------------------------------
+//  Генератор правил для одной grid-column
+//------------------------------------------------------------------------------
+//  Принимает:    По умолчанию:         Пояснение:
+//  $start-col:   null                 номер начальной линии в row для column
+//  $end-col:     null                 номер конечной линии в row для column
+//------------------------------------------------------------------------------
+
+@mixin make-col (
+  $start-col: null,
+  $end-col: null,
+  $start-row: null,
+  $end-row: null
+) 
+  grid-column: #{$start-col} / #{$end-col}
+
+
+//------------------------------------------------------------------------------
+//  Генератор правил для одного grid-column с возможностью указать @media
+//------------------------------------------------------------------------------
+//  Принимает:    По умолчанию:         Пояснение:
+//  $screen:      xs                    тип сетки [xs|sm|md|lg|xl|xxl]
+//  $start-col:   null                 номер начальной линии в row для column
+//  $end-col:     null                 номер конечной линии в row для column
+//------------------------------------------------------------------------------
+
+@mixin col (
+  $screen:  xs,
+  $start-col: null,
+  $end-col: null,
+  $start-row: null,
+  $end-row: null
+) 
+
+  @if ( $screen == xs ) 
+    @include make-col( $start-col, $end-col, $start-row, $end-row )
+  
+  @if ( $screen == sm ) 
+    @media ( min-width: $screen-sm ) 
+      @include make-col( $start-col, $end-col, $start-row, $end-row )
+    
+  @if ( $screen == md ) 
+    @media ( min-width: $screen-md ) 
+      @include make-col( $start-col, $end-col )
+    
+  @if ( $screen == lg ) 
+    @media ( min-width: $screen-lg ) 
+      @include make-col( $start-col, $end-col, $start-row, $end-row )
+    
+  @if ( $screen == xl ) 
+    @media ( min-width: $screen-xl ) 
+      @include make-col( $start-col, $end-col, $start-row, $end-row )
+    
+  @if ( $screen == xxl ) 
+    @media ( min-width: $screen-xxl ) 
+      @include make-col( $start-col, $end-col, $start-row, $end-row )

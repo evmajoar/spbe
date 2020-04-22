@@ -15,7 +15,7 @@ const browserSync = require("browser-sync").create();
 // Корневые папки
 const root = {
   src: "src/",
-  build: "dist/"
+  build: "dist/",
 };
 
 // Папки сборки
@@ -23,8 +23,8 @@ const path = {
   build: {
     html: root.build,
     css: root.build + "styles/",
-    js: root.build + "scripts/"
-  }
+    js: root.build + "scripts/",
+  },
 };
 
 // Очистка дерикторий
@@ -37,7 +37,7 @@ function clearBuildDir() {
     "!build/images",
     "!build/images/**",
     "!build/favicon",
-    "!build/favicon/**"
+    "!build/favicon/**",
   ]);
 }
 exports.clearBuildDir = clearBuildDir;
@@ -49,18 +49,18 @@ function compilePug() {
       plumber({
         errorHandler: notify.onError({
           title: "Ошибка PUG",
-          message: "Error: <%= error.message %>"
-        })
+          message: "Error: <%= error.message %>",
+        }),
       })
     )
     .pipe(
       pug({
-        pretty: true
+        pretty: true,
       })
     )
     .pipe(
       rename({
-        dirname: ""
+        dirname: "",
       })
     )
     .pipe(dest(path.build.html))
@@ -75,26 +75,26 @@ function compileSass() {
       plumber({
         errorHandler: notify.onError({
           title: "Ошибка sass",
-          message: "Error: <%= error.message %>"
-        })
+          message: "Error: <%= error.message %>",
+        }),
       })
     )
     .pipe(sass())
     .pipe(
       autoprefixer({
-        cascade: false
+        cascade: false,
       })
     )
     .pipe(
       csso({
         comments: false,
-        restructure: false
+        restructure: false,
       })
     )
     .pipe(
       rename({
         dirname: "",
-        suffix: ".min"
+        suffix: ".min",
       })
     )
     .pipe(dest(path.build.css))
@@ -109,18 +109,18 @@ function buildJs() {
       plumber({
         errorHandler: notify.onError({
           title: "Ошибка JS",
-          message: "Error: <%= error.message %>"
-        })
+          message: "Error: <%= error.message %>",
+        }),
       })
     )
     .pipe(
       webpackStream({
         entry: {
-          main: `./${root.src}pages/main/main.js`
+          main: `./${root.src}pages/main/main.js`,
         },
         mode: "production",
         output: {
-          filename: "[name].min.js"
+          filename: "[name].min.js",
         },
         module: {
           rules: [
@@ -129,11 +129,11 @@ function buildJs() {
               exclude: /(node_modules)/,
               loader: "babel-loader",
               query: {
-                presets: ["@babel/preset-env"]
-              }
-            }
-          ]
-        }
+                presets: ["@babel/preset-env"],
+              },
+            },
+          ],
+        },
 
         // Если используем jQuery
         // externals: {
@@ -161,7 +161,7 @@ function serve() {
     notify: false,
     port: 3000,
     startPath: "index.html",
-    open: true
+    open: true,
   });
 
   // Следим за изменениями в файлах .pug
@@ -170,11 +170,11 @@ function serve() {
       `${root.src}layout/*.pug`,
       `${root.src}pages/**/*.pug`,
       `${root.src}blocks/**/*.pug`,
-      `${root.src}theme/icons/*.pug`
+      `${root.src}theme/icons/*.pug`,
     ],
     {
       events: ["all"],
-      delay: 100
+      delay: 100,
     },
     series(compilePug, reload)
   );
@@ -185,11 +185,11 @@ function serve() {
       `${root.src}layout/*.sass`,
       `${root.src}pages/**/*.sass`,
       `${root.src}libraries/**/**/*.sass`,
-      `${root.src}blocks/**/*.sass`
+      `${root.src}blocks/**/*.sass`,
     ],
     {
       events: ["all"],
-      delay: 100
+      delay: 100,
     },
     series(compileSass, reload)
   );
@@ -199,7 +199,7 @@ function serve() {
     [`${root.src}pages/**/*.js`, `${root.src}blocks/**/*.js`],
     {
       events: ["all"],
-      delay: 100
+      delay: 100,
     },
     series(buildJs, reload)
   );
