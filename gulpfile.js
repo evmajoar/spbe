@@ -12,13 +12,13 @@ const rename = require("gulp-rename");
 const del = require("del");
 const browserSync = require("browser-sync").create();
 
-// Корневые папки
+
 const root = {
   src: "src/",
   build: "dist/",
 };
 
-// Папки сборки
+
 const path = {
   build: {
     html: root.build,
@@ -27,7 +27,7 @@ const path = {
   },
 };
 
-// Очистка дерикторий
+
 function clearBuildDir() {
   return del([
     "build/**",
@@ -42,9 +42,12 @@ function clearBuildDir() {
 }
 exports.clearBuildDir = clearBuildDir;
 
-// Компиляция Pug
+
 function compilePug() {
-  return src([`${root.src}pages/**/*.pug`, `!${root.src}pages/**/*.data.pug`])
+  return src([
+    `${root.src}pages/**/*.pug`,
+    `!${root.src}pages/**/*.data.pug`
+  ])
     .pipe(
       plumber({
         errorHandler: notify.onError({
@@ -68,7 +71,7 @@ function compilePug() {
 }
 exports.compilePug = compilePug;
 
-// Компиляция Sass
+
 function compileSass() {
   return src(`${root.src}pages/**/*.sass`)
     .pipe(
@@ -102,9 +105,11 @@ function compileSass() {
 }
 exports.compilesass = compileSass;
 
-// Сборка JS
+
 function buildJs() {
-  return src([`./${root.src}pages/main/main.js`])
+  return src([
+    `./${root.src}pages/index/index.js`
+  ])
     .pipe(
       plumber({
         errorHandler: notify.onError({
@@ -116,7 +121,7 @@ function buildJs() {
     .pipe(
       webpackStream({
         entry: {
-          main: `./${root.src}pages/main/main.js`,
+          index: `./${root.src}pages/index/index.js`,
         },
         mode: "production",
         output: {
@@ -146,15 +151,14 @@ function buildJs() {
 }
 exports.buildJs = buildJs;
 
-// Перезагрузка браузера
+
 function reload(done) {
   browserSync.reload();
   done();
 }
 
-// Запуск сервера и отслеживание изменений
+
 function serve() {
-  // Настройки сервера
   browserSync.init(null, {
     server: root.build,
     cors: true,
@@ -164,13 +168,11 @@ function serve() {
     open: true,
   });
 
-  // Следим за изменениями в файлах .pug
   watch(
     [
-      `${root.src}layout/*.pug`,
+      `${root.src}components/**/*.pug`,
       `${root.src}pages/**/*.pug`,
-      `${root.src}blocks/**/*.pug`,
-      `${root.src}theme/icons/*.pug`,
+      `${root.src}layout/*.pug`,
     ],
     {
       events: ["all"],
@@ -179,13 +181,12 @@ function serve() {
     series(compilePug, reload)
   );
 
-  // Следим за изменениями в файлах .sass
   watch(
     [
-      `${root.src}layout/*.sass`,
+      `${root.src}library/**/**/*.sass`,
+      `${root.src}components/**/*.sass`,
       `${root.src}pages/**/*.sass`,
-      `${root.src}libraries/**/**/*.sass`,
-      `${root.src}blocks/**/*.sass`,
+      `${root.src}layout/*.sass`,
     ],
     {
       events: ["all"],
@@ -194,9 +195,11 @@ function serve() {
     series(compileSass, reload)
   );
 
-  // Следим за изменениями в файлах .js
   watch(
-    [`${root.src}pages/**/*.js`, `${root.src}blocks/**/*.js`],
+    [
+      `${root.src}components/**/*.js`,
+      `${root.src}pages/**/*.js`,
+    ],
     {
       events: ["all"],
       delay: 100,
@@ -205,13 +208,13 @@ function serve() {
   );
 }
 
-// Сборка: очитска дериктории, компиляция Pug, компиляция Sass, сборка Js
+
 exports.build = series(
   clearBuildDir,
   parallel(compilePug, compileSass, buildJs)
 );
 
-// Сборка: очитска дериктории, компиляция Pug, компиляция Sass, сборка Js + запуск сервера и вотчера
+
 exports.default = series(
   clearBuildDir,
   parallel(compilePug, compileSass, buildJs),

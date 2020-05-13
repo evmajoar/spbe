@@ -1,4 +1,11 @@
-@import variables.sass
-@import mixins.sass
+@import "variables.sass"
+@import "mixins.sass"
 
-@include fontFace( $font1, 300 )
+/**
+  * Файловая структура дожна соответсвовать:
+  * 1.Название папки хранения семейства шрифтов с использованием camelCase, например ProximaNova
+  * 2.Название шрифта с использованием camelCase, например ProximaNova
+  * 3.Начертание шрифта через дефис с большой буквы, например ProximaNova-Regular
+  * Вид пути на выходе: src:url(../fonts/ProximaNova/ProximaNova-Regular.woff2)
+  */
+@include fontFace($fontMainName, (300, 400, 600, 700, 900))
