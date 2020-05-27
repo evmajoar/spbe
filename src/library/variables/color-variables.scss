@@ -1,0 +1,51 @@
+/**
+  * Базовые цвета
+  * https://colorscheme.ru/color-converter.html
+  */
+$black: hsl(0, 0%, 0%);
+$gray-darkest: hsl(0, 0%, 10%);
+$gray-darker: hsl(0, 0%, 20%);
+$gray-darken: hsl(0, 0%, 30%);
+$gray-dark: hsl(0, 0%, 40%);
+$gray: hsl(0, 0%, 50%);
+$gray-light: hsl(0, 0%, 60%);
+$gray-lighten: hsl(0, 0%, 70%);
+$gray-lighter: hsl(0, 0%, 80%);
+$gray-lightest: hsl(0, 0%, 90%);
+$white: hsl(0, 0%, 100%);
+
+/**
+  * Базовые цвета
+  */
+$color-base-main: hsl(208, 98%, 43%);
+$color-base-success: hsl(120, 39%, 54%);
+$color-base-danger: hsl(2, 64%, 58%);
+$color-base-warning: hsl(35, 84%, 62%);
+
+/**
+  * Семантические цвета
+  */
+$text-color: $gray-darkest;
+$text-color--muted: $gray;
+$bg-main-color: $white;
+
+/**
+  * Цвета брендов
+  * https://brandcolors.net/
+  */
+$color-brand-vkontakte: #4a76a8;
+$color-brand-facebook: #4267b2;
+$color-brand-twitter: #40a2f5;
+$color-brand-behance: #1769ff;
+$color-brand-instagram: linear-gradient(
+  45deg,
+  #f09433 0%,
+  #e6683c 25%,
+  #dc2743 50%,
+  #cc2366 75%,
+  #bc1888 100%
+);
+$color-brand-telegram: #0088cc;
+$color-brand-viber: #8f5db7;
+$color-brand-whatsapp: #25d366;
+$color-brand-skype: #00aff0;

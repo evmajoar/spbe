@@ -1,0 +1,29 @@
+@import "variables.scss";
+@import "mixins.scss";
+@import "normalize.scss";
+@import "fonts.scss";
+@import "animations.scss";
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: $bg-main-color;
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+  font: #{$font-size}/#{$line-height} #{$font-family};
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+}

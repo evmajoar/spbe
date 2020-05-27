@@ -1,7 +1,7 @@
 {
   "name": "spbe",
   "version": "1.0.0",
-  "description": "",
+  "description": "pug, scss, js, gulp",
   "main": "index.js",
   "scripts": {
     "start": "gulp default"

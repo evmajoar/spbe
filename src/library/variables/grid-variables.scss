@@ -1,0 +1,23 @@
+/**
+  * Станлартная модульная сетка
+  */
+$grid-сolumns: 12;
+$grid-gutter: 30px;
+
+/**
+  * Ширины вьюпорта
+  */
+$screen-sm: 480px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+$screen-xxl: 1800px;
+
+/**
+  * Ширины контейнера для ширин вьюпорта
+  */
+$container-sm: 100%;
+$container-md: 100%;
+$container-lg: $screen-lg - $grid-gutter;
+$container-xl: $screen-xl - $grid-gutter;
+$container-xxl: $screen-xxl - $grid-gutter;

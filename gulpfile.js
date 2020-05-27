@@ -3,21 +3,19 @@
 const { series, parallel, src, dest, watch } = require("gulp");
 const pug = require("gulp-pug");
 const sass = require("gulp-sass");
-const autoprefixer = require("gulp-autoprefixer");
 const csso = require("gulp-csso");
-const webpackStream = require("webpack-stream");
 const plumber = require("gulp-plumber");
 const notify = require("gulp-notify");
 const rename = require("gulp-rename");
-const del = require("del");
+const autoprefixer = require("gulp-autoprefixer");
+const webpackStream = require("webpack-stream");
 const browserSync = require("browser-sync").create();
-
+const del = require("del");
 
 const root = {
   src: "src/",
   build: "dist/",
 };
-
 
 const path = {
   build: {
@@ -26,7 +24,6 @@ const path = {
     js: root.build + "scripts/",
   },
 };
-
 
 function clearBuildDir() {
   return del([
@@ -42,11 +39,10 @@ function clearBuildDir() {
 }
 exports.clearBuildDir = clearBuildDir;
 
-
 function compilePug() {
   return src([
     `${root.src}pages/**/*.pug`,
-    `!${root.src}pages/**/*.data.pug`
+    `!${root.src}pages/**/*.data.pug`,
   ])
     .pipe(
       plumber({
@@ -54,61 +50,56 @@ function compilePug() {
           title: "Ошибка PUG",
           message: "Error: <%= error.message %>",
         }),
-      })
+      }),
     )
     .pipe(
       pug({
         pretty: true,
-      })
+      }),
     )
     .pipe(
       rename({
         dirname: "",
-      })
+      }),
     )
     .pipe(dest(path.build.html))
     .pipe(browserSync.stream());
 }
 exports.compilePug = compilePug;
 
-
-function compileSass() {
-  return src(`${root.src}pages/**/*.sass`)
+function compileScss() {
+  return src(`${root.src}pages/**/*.scss`)
     .pipe(
       plumber({
         errorHandler: notify.onError({
-          title: "Ошибка sass",
+          title: "Ошибка scss",
           message: "Error: <%= error.message %>",
         }),
-      })
+      }),
     )
     .pipe(sass())
     .pipe(
       autoprefixer({
         cascade: false,
-      })
+      }),
     )
     .pipe(
-      csso({
-        comments: false,
-        restructure: false,
-      })
+      csso({ comments: false, restructure: false }),
     )
     .pipe(
       rename({
         dirname: "",
         suffix: ".min",
-      })
+      }),
     )
     .pipe(dest(path.build.css))
     .pipe(browserSync.stream());
 }
-exports.compilesass = compileSass;
-
+exports.compilescss = compileScss;
 
 function buildJs() {
   return src([
-    `./${root.src}pages/index/index.js`
+    `./${root.src}pages/index/index.js`,
   ])
     .pipe(
       plumber({
@@ -116,7 +107,7 @@ function buildJs() {
           title: "Ошибка JS",
           message: "Error: <%= error.message %>",
         }),
-      })
+      }),
     )
     .pipe(
       webpackStream({
@@ -139,24 +130,17 @@ function buildJs() {
             },
           ],
         },
-
-        // Если используем jQuery
-        // externals: {
-        //     jquery: 'jQuery'
-        // }
-      })
+      }),
     )
     .pipe(dest(path.build.js))
     .pipe(browserSync.stream());
 }
 exports.buildJs = buildJs;
 
-
 function reload(done) {
   browserSync.reload();
   done();
 }
-
 
 function serve() {
   browserSync.init(null, {
@@ -174,25 +158,19 @@ function serve() {
       `${root.src}pages/**/*.pug`,
       `${root.src}layout/*.pug`,
     ],
-    {
-      events: ["all"],
-      delay: 100,
-    },
-    series(compilePug, reload)
+    { events: ["all"], delay: 100 },
+    series(compilePug, reload),
   );
 
   watch(
     [
-      `${root.src}library/**/**/*.sass`,
-      `${root.src}components/**/*.sass`,
-      `${root.src}pages/**/*.sass`,
-      `${root.src}layout/*.sass`,
+      `${root.src}library/**/**/*.scss`,
+      `${root.src}components/**/*.scss`,
+      `${root.src}pages/**/*.scss`,
+      `${root.src}layout/*.scss`,
     ],
-    {
-      events: ["all"],
-      delay: 100,
-    },
-    series(compileSass, reload)
+    { events: ["all"], delay: 100 },
+    series(compileScss, reload),
   );
 
   watch(
@@ -200,23 +178,18 @@ function serve() {
       `${root.src}components/**/*.js`,
       `${root.src}pages/**/*.js`,
     ],
-    {
-      events: ["all"],
-      delay: 100,
-    },
-    series(buildJs, reload)
+    { events: ["all"], delay: 100 },
+    series(buildJs, reload),
   );
 }
 
-
 exports.build = series(
   clearBuildDir,
-  parallel(compilePug, compileSass, buildJs)
+  parallel(compilePug, compileScss, buildJs),
 );
-
 
 exports.default = series(
   clearBuildDir,
-  parallel(compilePug, compileSass, buildJs),
-  serve
+  parallel(compilePug, compileScss, buildJs),
+  serve,
 );

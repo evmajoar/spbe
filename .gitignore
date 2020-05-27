@@ -1,13 +1,8 @@
-.idea/
+.idea
 
-node_modules/
-dist/
-
+node_modules
 package-lock.json
 
-*.ai
-*.psd
-*.pdf
-*.log
-
-Thumbs.db
+dist/scripts
+dist/styles
+dist/*.html

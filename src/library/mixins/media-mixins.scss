@@ -1,0 +1,31 @@
+/**
+  * Миксин @media-запросов
+  */
+@mixin breakPoint($size) {
+  @if ($size == sm) {
+    // sm = 480px
+    @media (min-width: $screen-sm) {
+      @content;
+    }
+  } @else if ($size == md) {
+    // md = 768px
+    @media (min-width: $screen-md) {
+      @content;
+    }
+  } @else if ($size == lg) {
+    // lg = 992px
+    @media (min-width: $screen-lg) {
+      @content;
+    }
+  } @else if ($size == xl) {
+    // xl = 1200px
+    @media (min-width: $screen-xl) {
+      @content;
+    }
+  } @else if ($size == xxl) {
+    // xxl = 1800px
+    @media (min-width: $screen-xxl) {
+      @content;
+    }
+  }
+}

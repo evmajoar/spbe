@@ -1,14 +1,15 @@
 -
   //- Данные о разработчике
+  const designer = {
+    name: 'evmajoar',
+  }
+
   const developer = {
     name: 'evmajoar',
     email: 'evmajoar@gmail.com',
   }
 
-  //- Деструктурируем данные
-  const {name, email} = developer;
-
-  //- Настройки
+  //- Настройки шаблона
   const setting = {
     language: 'ru',
     charset: 'utf-8',
@@ -18,5 +19,4 @@
     faviconPath: 'favicon/'
   }
 
-  //- Деструктурируем настройки
-  const {language, charset, siteName, siteURL, imagesPath, faviconPath} = setting;
+  const {language, charset, siteName, siteURL, imagePath, faviconPath} = setting;
