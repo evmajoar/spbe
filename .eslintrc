@@ -1,5 +1,6 @@
 {
-  "extends": "eslint:recommended",
+  "root": true,
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "env": {
     "browser": true,
     "node": true,
@@ -7,10 +8,6 @@
     "jquery": true
   },
   "rules": {
-    "indent": ["warn", 2],
-    "semi": ["error", "always"],
-    "quotes": ["error", "double"],
-    "linebreak-style": ["error", "windows"],
-    "require-jsdoc": "off"
+    "max-len": ["warn", { "code": 100 }]
   }
 }

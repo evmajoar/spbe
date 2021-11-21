@@ -1,18 +1,9 @@
-@import "variables.scss";
-@import "mixins.scss";
-@import "normalize.scss";
-@import "fonts.scss";
-@import "animations.scss";
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-* {
-  -webkit-tap-highlight-color: transparent;
-}
+@import 'variables.scss';
+@import 'mixins.scss';
+@import 'normalize.scss';
+@import 'reset.scss';
+@import 'fonts.scss';
+@import 'animations.scss';
 
 body {
   background: $bg-main-color;
@@ -21,6 +12,7 @@ body {
   flex-direction: column;
   font: #{$font-size}/#{$line-height} #{$font-family};
   min-height: 100vh;
+  min-width: 320px;
   text-rendering: optimizeLegibility;
 
   -moz-osx-font-smoothing: grayscale;

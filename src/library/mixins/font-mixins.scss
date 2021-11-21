@@ -1,57 +1,41 @@
-/**
-  * Сопоставление начертания ширфта.
-  * https://developer.mozilla.org/ru/docs/Web/CSS/font-weight
-  */
-@function matchFontWeight($weight: "Regular") {
+@function matchFontWeight($weight: 'Regular') {
   @if $weight == 100 {
-    @return "Thin";
+    @return 'Thin';
   } @else if $weight == 200 {
-    @return "Extra Light";
+    @return 'Extra Light';
   } @else if $weight == 300 {
-    @return "Light";
+    @return 'Light';
   } @else if $weight == 400 {
-    @return "Regular";
+    @return 'Regular';
   } @else if $weight == 500 {
-    @return "Medium";
+    @return 'Medium';
   } @else if $weight == 600 {
-    @return "Semi Bold";
+    @return 'Semi Bold';
   } @else if $weight == 700 {
-    @return "Bold";
+    @return 'Bold';
   } @else if $weight == 800 {
-    @return "Extra Bold";
+    @return 'Extra Bold';
   } @else if $weight == 900 {
-    @return "Black";
+    @return 'Black';
   }
 }
 
-/**
-  * Миксин подключения шрифтов
-  */
 @mixin fontFace($name, $weights: (), $style: normal) {
   @each $weight in $weights {
     @font-face {
       font-family: $name;
       font-display: swap;
       font-style: $style;
-      src: url("#{$font-dir}#{$name}/#{$name}-#{matchFontWeight($weight)}.woff2")
-          format("woff2"),
-        url("#{$font-dir}#{$name}/#{$name}-#{matchFontWeight($weight)}.woff")
-          format("woff");
+      src: url('#{$font-dir}#{$name}/#{$name}-#{matchFontWeight($weight)}.woff2') format('woff2'),
+        url('#{$font-dir}#{$name}/#{$name}-#{matchFontWeight($weight)}.woff') format('woff');
     }
   }
 }
 
-/**
-  * Рассчет rem на основе px.
-  * @return string
-  */
 @function calcRem($number) {
   @return ($number/$font-base) #{rem};
 }
 
-/**
-  * Миксин конвертации и установки font-size в rem.
-  */
 @mixin inRem($number) {
   font-size: calcRem($number);
 }

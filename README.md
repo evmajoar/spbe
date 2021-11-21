@@ -1,1 +1,1 @@
-## Стартовый проект (Pug, Scss, Js, Gulp)
+## Start project with Pug, Scss, Js, Gulp

@@ -1,11 +1,8 @@
-/**
-  * Базовая типографика
-  */
 $font-base-size: 16;
-$font-name-main: "FontName";
-$font-size: $font-base-size#{"px"};
+$font-name-main: 'FontName';
+$font-size: $font-base-size#{'px'};
 $line-height: 100%;
-$font-family: -apple-system, BlinkMacSystemFont, $font-name-main, "Ubuntu", "Droid Sans",
-  "Helvetica Neue", "Arial", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family: -apple-system, BlinkMacSystemFont, $font-name-main, 'Ubuntu', 'Droid Sans',
+  'Helvetica Neue', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 $font-family--monospace: SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New,
   monospace;

@@ -1,66 +1,63 @@
-"use strict";
+'use strict';
 
-const { series, parallel, src, dest, watch } = require("gulp");
-const pug = require("gulp-pug");
-const sass = require("gulp-sass");
-const csso = require("gulp-csso");
-const plumber = require("gulp-plumber");
-const notify = require("gulp-notify");
-const rename = require("gulp-rename");
-const autoprefixer = require("gulp-autoprefixer");
-const webpackStream = require("webpack-stream");
-const browserSync = require("browser-sync").create();
-const del = require("del");
+const { series, parallel, src, dest, watch } = require('gulp');
+const pug = require('gulp-pug');
+const sass = require('gulp-sass')(require('sass'));
+const csso = require('gulp-csso');
+const plumber = require('gulp-plumber');
+const notify = require('gulp-notify');
+const rename = require('gulp-rename');
+const autoprefixer = require('gulp-autoprefixer');
+const webpackStream = require('webpack-stream');
+const browserSync = require('browser-sync').create();
+const del = require('del');
 
 const root = {
-  src: "src/",
-  build: "dist/",
+  src: 'src/',
+  build: 'dist/',
 };
 
 const path = {
   build: {
     html: root.build,
-    css: root.build + "styles/",
-    js: root.build + "scripts/",
+    css: root.build + 'styles/',
+    js: root.build + 'scripts/',
   },
 };
 
 function clearBuildDir() {
   return del([
-    "build/**",
-    "!build",
-    "!build/fonts",
-    "!build/fonts/**",
-    "!build/images",
-    "!build/images/**",
-    "!build/favicon",
-    "!build/favicon/**",
+    'build/**',
+    '!build',
+    '!build/fonts',
+    '!build/fonts/**',
+    '!build/images',
+    '!build/images/**',
+    '!build/favicon',
+    '!build/favicon/**',
   ]);
 }
 exports.clearBuildDir = clearBuildDir;
 
 function compilePug() {
-  return src([
-    `${root.src}pages/**/*.pug`,
-    `!${root.src}pages/**/*.data.pug`,
-  ])
+  return src([`${root.src}pages/**/*.pug`, `!${root.src}pages/**/*.data.pug`])
     .pipe(
       plumber({
         errorHandler: notify.onError({
-          title: "Ошибка PUG",
-          message: "Error: <%= error.message %>",
+          title: 'Ошибка PUG',
+          message: 'Error: <%= error.message %>',
         }),
-      }),
+      })
     )
     .pipe(
       pug({
         pretty: true,
-      }),
+      })
     )
     .pipe(
       rename({
-        dirname: "",
-      }),
+        dirname: '',
+      })
     )
     .pipe(dest(path.build.html))
     .pipe(browserSync.stream());
@@ -72,25 +69,23 @@ function compileScss() {
     .pipe(
       plumber({
         errorHandler: notify.onError({
-          title: "Ошибка scss",
-          message: "Error: <%= error.message %>",
+          title: 'Ошибка scss',
+          message: 'Error: <%= error.message %>',
         }),
-      }),
+      })
     )
     .pipe(sass())
     .pipe(
       autoprefixer({
         cascade: false,
-      }),
+      })
     )
-    .pipe(
-      csso({ comments: false, restructure: false }),
-    )
+    .pipe(csso({ comments: false, restructure: false }))
     .pipe(
       rename({
-        dirname: "",
-        suffix: ".min",
-      }),
+        dirname: '',
+        suffix: '.min',
+      })
     )
     .pipe(dest(path.build.css))
     .pipe(browserSync.stream());
@@ -98,39 +93,37 @@ function compileScss() {
 exports.compilescss = compileScss;
 
 function buildJs() {
-  return src([
-    `./${root.src}pages/index/index.js`,
-  ])
+  return src([`./${root.src}pages/index/index.js`])
     .pipe(
       plumber({
         errorHandler: notify.onError({
-          title: "Ошибка JS",
-          message: "Error: <%= error.message %>",
+          title: 'Ошибка JS',
+          message: 'Error: <%= error.message %>',
         }),
-      }),
+      })
     )
     .pipe(
       webpackStream({
         entry: {
           index: `./${root.src}pages/index/index.js`,
         },
-        mode: "production",
+        mode: 'production',
         output: {
-          filename: "[name].min.js",
+          filename: '[name].min.js',
         },
         module: {
           rules: [
             {
               test: /\.(js)$/,
               exclude: /(node_modules)/,
-              loader: "babel-loader",
-              query: {
-                presets: ["@babel/preset-env"],
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env'],
               },
             },
           ],
         },
-      }),
+      })
     )
     .pipe(dest(path.build.js))
     .pipe(browserSync.stream());
@@ -148,18 +141,14 @@ function serve() {
     cors: true,
     notify: false,
     port: 3000,
-    startPath: "index.html",
+    startPath: 'index.html',
     open: true,
   });
 
   watch(
-    [
-      `${root.src}components/**/*.pug`,
-      `${root.src}pages/**/*.pug`,
-      `${root.src}layout/*.pug`,
-    ],
-    { events: ["all"], delay: 100 },
-    series(compilePug, reload),
+    [`${root.src}components/**/*.pug`, `${root.src}pages/**/*.pug`, `${root.src}layout/*.pug`],
+    { events: ['all'], delay: 100 },
+    series(compilePug, reload)
   );
 
   watch(
@@ -169,27 +158,17 @@ function serve() {
       `${root.src}pages/**/*.scss`,
       `${root.src}layout/*.scss`,
     ],
-    { events: ["all"], delay: 100 },
-    series(compileScss, reload),
+    { events: ['all'], delay: 100 },
+    series(compileScss, reload)
   );
 
   watch(
-    [
-      `${root.src}components/**/*.js`,
-      `${root.src}pages/**/*.js`,
-    ],
-    { events: ["all"], delay: 100 },
-    series(buildJs, reload),
+    [`${root.src}components/**/*.js`, `${root.src}pages/**/*.js`],
+    { events: ['all'], delay: 100 },
+    series(buildJs, reload)
   );
 }
 
-exports.build = series(
-  clearBuildDir,
-  parallel(compilePug, compileScss, buildJs),
-);
+exports.build = series(clearBuildDir, parallel(compilePug, compileScss, buildJs));
 
-exports.default = series(
-  clearBuildDir,
-  parallel(compilePug, compileScss, buildJs),
-  serve,
-);
+exports.default = series(clearBuildDir, parallel(compilePug, compileScss, buildJs), serve);

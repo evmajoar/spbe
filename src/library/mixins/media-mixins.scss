@@ -1,6 +1,3 @@
-/**
-  * Миксин @media-запросов
-  */
 @mixin breakPoint($size) {
   @if ($size == sm) {
     // sm = 480px

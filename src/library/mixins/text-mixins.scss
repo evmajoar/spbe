@@ -1,6 +1,3 @@
-/**
-  * Миксин скрытия текста
-  */
 @mixin hide-text {
   position: absolute;
   width: 1px;
@@ -11,9 +8,6 @@
   overflow: hidden;
 }
 
-/**
-  * Миксин смены цвета input placeholder
-  */
 @mixin placeholder {
   &::-webkit-input-placeholder {
     @content;
@@ -29,9 +23,6 @@
   }
 }
 
-/**
-  * Миксин установки прозрачного цвета input placeholder
-  */
 @mixin placeholder-hidden {
   &:focus::-webkit-input-placeholder {
     color: transparent;

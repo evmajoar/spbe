@@ -2,7 +2,3 @@
 
 node_modules
 package-lock.json
-
-dist/scripts
-dist/styles
-dist/*.html
